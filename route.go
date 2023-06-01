@@ -17,5 +17,9 @@ func registerRouter(core *framework.Core) {
 	{
 		api.Get("/user", UserControllerHandler)
 		api.Get("/user/:id/detail", UserControllerHandler2)
+		v1 := api.Group("/v1")
+		{
+			v1.Get("/user", UserControllerHandler)
+		}
 	}
 }

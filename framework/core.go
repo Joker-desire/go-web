@@ -81,6 +81,11 @@ func (c *Core) Delete(url string, handler ControllerHandler) {
 	}
 }
 
+// Group 分组路由
+func (c *Core) Group(prefix string) IGroup {
+	return NewGroup(c, prefix)
+}
+
 func (c *Core) FindRouteByRequest(request *http.Request) ControllerHandler {
 	// 将URI和Method转换为大写
 	uri := request.URL.Path
