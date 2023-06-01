@@ -19,6 +19,11 @@ func main() {
 	registerRouter(core)
 	core.Get("/foo", FooControllerHandler)
 	core.Get("/hello", HelloControllerHandler)
+	api := core.Group("/api")
+	{
+		api.Get("/user", UserControllerHandler)
+	}
+
 	server := &http.Server{
 		// 自定义的请求核心处理函数
 		Handler: core,

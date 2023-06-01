@@ -72,3 +72,8 @@ func FooControllerHandler(ctx *framework.Context) error {
 func HelloControllerHandler(ctx *framework.Context) error {
 	return ctx.Json(200, "hello world")
 }
+
+func UserControllerHandler(ctx *framework.Context) error {
+	name := ctx.QueryString("name", "Joker")
+	return ctx.Json(200, "hello "+name+"!")
+}
