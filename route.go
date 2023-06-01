@@ -11,6 +11,11 @@ package main
 import "github.com/Joker-desire/go-web/framework"
 
 func registerRouter(core *framework.Core) {
-	// 设置控制器
-	core.Get("foo", FooControllerHandler)
+	core.Get("/foo", FooControllerHandler)
+	core.Get("/hello", HelloControllerHandler)
+	api := core.Group("/api")
+	{
+		api.Get("/user", UserControllerHandler)
+		api.Get("/user/:id/detail", UserControllerHandler2)
+	}
 }
