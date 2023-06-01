@@ -17,7 +17,8 @@ func main() {
 	core := framework.NewCore()
 	// 注册路由
 	registerRouter(core)
-	core.Get("foo", FooControllerHandler)
+	core.Get("/foo", FooControllerHandler)
+	core.Get("/hello", HelloControllerHandler)
 	server := &http.Server{
 		// 自定义的请求核心处理函数
 		Handler: core,

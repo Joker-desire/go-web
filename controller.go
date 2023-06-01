@@ -68,3 +68,7 @@ func FooControllerHandler(ctx *framework.Context) error {
 	}
 	return nil
 }
+
+func HelloControllerHandler(ctx *framework.Context) error {
+	return ctx.Json(200, "hello world")
+}
