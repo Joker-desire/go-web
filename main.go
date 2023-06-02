@@ -10,11 +10,23 @@ package main
 
 import (
 	"github.com/Joker-desire/go-web/framework"
+	"github.com/Joker-desire/go-web/framework/middleware"
 	"net/http"
+	"time"
 )
 
 func main() {
 	core := framework.NewCore()
+	// 使用use注册中间件
+	//core.Use(
+	//	middleware.Test1(),
+	//	middleware.Test2(),
+	//	middleware.TimeoutMiddleware(time.Second*10))
+	core.Use(
+		middleware.RecoveryMiddleware(),
+		middleware.CostMiddleware(),
+		middleware.TimeoutMiddleware(time.Second),
+	)
 	// 注册路由
 	registerRouter(core)
 	server := &http.Server{
