@@ -17,7 +17,7 @@ func RecoveryMiddleware() framework.ControllerHandler {
 			if err := recover(); err != nil {
 				c.WriterMux().Lock()
 				defer c.WriterMux().Unlock()
-				_ = c.Json(500, err)
+				c.SetStatus(500).Json(err)
 			}
 		}()
 		// 使用Next执行具体的业务逻辑

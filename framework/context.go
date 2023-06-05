@@ -9,13 +9,8 @@
 package framework
 
 import (
-	"bytes"
 	"context"
-	"encoding/json"
-	"errors"
-	"io/ioutil"
 	"net/http"
-	"strconv"
 	"sync"
 	"time"
 )
@@ -35,6 +30,8 @@ type Context struct {
 	// 当前请求的handler链条
 	handlers []ControllerHandler
 	index    int // 当前请求调用到调用链的哪个节点
+
+	params map[string]string // url路由匹配的参数
 }
 
 // NewContext 初始化上下文结构
@@ -80,6 +77,10 @@ func (ctx *Context) SetHandlers(handlers []ControllerHandler) {
 	ctx.handlers = handlers
 }
 
+func (ctx *Context) SetParams(params map[string]string) {
+	ctx.params = params
+}
+
 // Next 核心函数，调用context的下一个函数
 // 为了控制实现链条的逐步调用，需要在每个中间件中调用Next函数。
 // 这个Next方法每调用一次，讲讲这个控制器链路的调用控制器
@@ -116,130 +117,4 @@ func (ctx *Context) Err() error {
 
 func (ctx *Context) Value(key any) any {
 	return ctx.request.Context().Value(key)
-}
-
-// request
-
-// QueryInt 获取query int参数
-func (ctx *Context) QueryInt(key string, def int) int {
-	params := ctx.QueryAll()
-	if values, ok := params[key]; ok {
-		l := len(values)
-		if l > 0 {
-			intVal, err := strconv.Atoi(values[l-1])
-			if err != nil {
-				return def
-			}
-			return intVal
-		}
-	}
-	return def
-}
-
-// QueryString 获取query string参数
-func (ctx *Context) QueryString(key string, def string) string {
-	params := ctx.QueryAll()
-	if values, ok := params[key]; ok {
-		l := len(values)
-		if l > 0 {
-			return values[l-1]
-		}
-	}
-	return def
-}
-
-// QueryArray 获取query array参数
-func (ctx *Context) QueryArray(key string, def []string) []string {
-	params := ctx.QueryAll()
-	if values, ok := params[key]; ok {
-		return values
-	}
-	return def
-}
-
-// QueryAll 获取query所有参数
-func (ctx *Context) QueryAll() map[string][]string {
-	if ctx.request != nil {
-		return ctx.request.URL.Query()
-	}
-	return map[string][]string{}
-}
-
-// FormInt 获取form int参数
-func (ctx *Context) FormInt(key string, def int) int {
-	params := ctx.FormAll()
-	if values, ok := params[key]; ok {
-		l := len(values)
-		if l > 0 {
-			intVal, err := strconv.Atoi(values[l-1])
-			if err != nil {
-				return def
-			}
-			return intVal
-		}
-	}
-	return def
-}
-
-// FormString 获取form string参数
-func (ctx *Context) FormString(key string, def string) string {
-	params := ctx.QueryAll()
-	if values, ok := params[key]; ok {
-		l := len(values)
-		if l > 0 {
-			return values[l-1]
-		}
-	}
-	return def
-}
-
-// FormArray 获取form array参数
-func (ctx *Context) FormArray(key string, def []string) []string {
-	params := ctx.QueryAll()
-	if values, ok := params[key]; ok {
-		return values
-	}
-	return def
-}
-
-// FormAll 获取form参数
-func (ctx *Context) FormAll() map[string][]string {
-	if ctx.request != nil {
-		return ctx.request.PostForm
-	}
-	return map[string][]string{}
-}
-
-// BindJson 将请求体参数与json绑定
-func (ctx *Context) BindJson(obj any) error {
-	if ctx.request != nil {
-		body, err := ioutil.ReadAll(ctx.request.Body)
-		if err != nil {
-			return err
-		}
-		ctx.request.Body = ioutil.NopCloser(bytes.NewBuffer(body))
-		err = json.Unmarshal(body, obj)
-		if err != nil {
-			return err
-		}
-	} else {
-		return errors.New("request is nil")
-	}
-	return nil
-}
-
-// response
-
-// Json 返回json数据
-func (ctx *Context) Json(status int, obj any) error {
-
-	ctx.responseWriter.Header().Set("Content-Type", "application/json")
-	ctx.responseWriter.WriteHeader(status)
-	byt, err := json.Marshal(obj)
-	_, err = ctx.responseWriter.Write(byt)
-	if err != nil {
-		ctx.responseWriter.WriteHeader(500)
-		return err
-	}
-	return nil
 }

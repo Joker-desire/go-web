@@ -20,6 +20,9 @@ type node struct {
 	//handler  ControllerHandler // 代表这个节点中包含的控制器，用于最终加载调用
 	handlers []ControllerHandler // 中间件+控制器
 	children []*node             // 代表这个节点下的子节点
+
+	//增加一个parent指针，指向付姐带你，将trie树变成一个双向指针
+	parent *node
 }
 
 func newNode() *node {
@@ -105,6 +108,27 @@ func (n *node) matchNode(uri string) *node {
 	return nil
 }
 
+// 将uri解析为params
+// 根据最终匹配的节点和请求URI，查找出整个匹配链路中的通配符节点和对应URI中的分段
+func (n *node) parseParamsFromEndNode(uri string) map[string]string {
+	ret := map[string]string{}
+	segments := strings.Split(uri, "/")
+	cnt := len(segments)
+	cur := n
+	for i := cnt - 1; i >= 0; i-- {
+		if cur.segment == "" {
+			break
+		}
+		// 如果是通配符节点
+		if isWidSegment(cur.segment) {
+			// 设置 params
+			ret[cur.segment[1:]] = segments[i]
+		}
+		cur = cur.parent
+	}
+	return ret
+}
+
 // AddRouter 增加路由节点
 func (tree *Tree) AddRouter(uri string, handlers []ControllerHandler) error {
 
@@ -146,6 +170,8 @@ func (tree *Tree) AddRouter(uri string, handlers []ControllerHandler) error {
 				cnode.isLast = true
 				cnode.handlers = handlers
 			}
+			// 父节点指针修改
+			cnode.parent = n
 			n.children = append(n.children, cnode)
 			objNode = cnode
 		}

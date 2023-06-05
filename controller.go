@@ -11,6 +11,7 @@ package main
 import (
 	"fmt"
 	"github.com/Joker-desire/go-web/framework"
+	"log"
 	"time"
 )
 
@@ -19,9 +20,9 @@ func FooControllerHandler(ctx *framework.Context) error {
 	// 获取请求参数
 	all := ctx.QueryAll()
 	fmt.Printf("%v\n", all)
-	device := ctx.QueryString("device", "pc")
+	device, _ := ctx.QueryString("device", "pc")
 	fmt.Printf("device = %v\n", device)
-	age := ctx.QueryInt("age", 0)
+	age, _ := ctx.QueryInt("age", 0)
 	fmt.Printf("age = %v\n", age)
 	time.Sleep(10 * time.Second)
 	//
@@ -70,14 +71,56 @@ func FooControllerHandler(ctx *framework.Context) error {
 }
 
 func HelloControllerHandler(ctx *framework.Context) error {
-	return ctx.Json(200, "hello world")
+	ctx.SetOkStatus().Json("hello world")
+	return nil
 }
 
 func UserControllerHandler(ctx *framework.Context) error {
-	name := ctx.QueryString("name", "Joker")
-	return ctx.Json(200, "hello "+name+"!")
+	if name, ok := ctx.QueryString("name", "Joker"); ok {
+		ctx.SetOkStatus().Json("hello " + name + "!")
+	}
+	return nil
 }
 
 func UserControllerHandler2(ctx *framework.Context) error {
-	return ctx.Json(200, "hello")
+	param := ctx.Param("id")
+	log.Println(param)
+	ctx.SetOkStatus().Json("hello world")
+	return nil
+}
+
+func TestJsonP(ctx *framework.Context) error {
+	ctx.SetOkStatus().JsonP("hello JsonP")
+	return nil
+}
+
+func TestText(ctx *framework.Context) error {
+	ctx.SetOkStatus().Text("hello Text")
+	return nil
+}
+
+func TestXml(ctx *framework.Context) error {
+	ctx.SetOkStatus().Xml("hello Xml")
+	return nil
+}
+
+func TestHtml(ctx *framework.Context) error {
+	type Todo struct {
+		Title string
+		Done  bool
+	}
+	type TodoPageData struct {
+		PageTitle string
+		Todos     []Todo
+	}
+	data := TodoPageData{
+		PageTitle: "My TODO list",
+		Todos: []Todo{
+			{Title: "Task 1", Done: false},
+			{Title: "Task 2", Done: true},
+			{Title: "Task 3", Done: true},
+		},
+	}
+	ctx.SetOkStatus().Html("index.html", data)
+	return nil
 }
