@@ -11,6 +11,7 @@ package main
 import (
 	"github.com/Joker-desire/go-web/framework"
 	"github.com/Joker-desire/go-web/framework/middleware"
+	"log"
 	"net/http"
 	"time"
 )
@@ -29,6 +30,9 @@ func main() {
 	)
 	// 注册路由
 	registerRouter(core)
+	// 打印路由表
+	routers := core.GetRouters()
+	log.Printf("%T\n", routers)
 	server := &http.Server{
 		// 自定义的请求核心处理函数
 		Handler: core,

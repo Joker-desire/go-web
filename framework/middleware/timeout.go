@@ -10,7 +10,6 @@ package middleware
 
 import (
 	"context"
-	"fmt"
 	"github.com/Joker-desire/go-web/framework"
 	"log"
 	"time"
@@ -48,18 +47,18 @@ func TimeoutMiddleware(d time.Duration) framework.ControllerHandler {
 		case p := <-panicChan:
 			c.WriterMux().Lock()
 			defer c.WriterMux().Unlock()
-			_ = c.Json(500, "timeout")
+			c.SetStatus(500).Json("timeout")
 			log.Println(p)
 		case <-finish:
 			// 监听结束
-			fmt.Println("finish")
+			log.Println("timeout finish")
 			break
 		case <-durationCtx.Done():
 			// 监听超时
 			c.WriterMux().Lock()
 			defer c.WriterMux().Unlock()
 			c.SetHasTimeout()
-			_ = c.Json(500, "timeout")
+			c.SetStatus(500).Json("timeout")
 		}
 		return nil
 	}

@@ -97,7 +97,7 @@ func (c *Core) Group(prefix string) IGroup {
 	return NewGroup(c, prefix)
 }
 
-func (c *Core) FindRouteByRequest(request *http.Request) []ControllerHandler {
+func (c *Core) FindRouteNodeByRequest(request *http.Request) *node {
 	// 将URI和Method转换为大写
 	uri := request.URL.Path
 	method := request.Method
@@ -105,37 +105,37 @@ func (c *Core) FindRouteByRequest(request *http.Request) []ControllerHandler {
 
 	// 根据Method获取对应的Map
 	if methodMap, ok := c.router[upperMethod]; ok {
-		//// 根据URI获取对应的Handler
-		//if handler, ok := methodMap[upperUri]; ok {
-		//	return handler
-		//}
-		return methodMap.FindHandler(uri)
+		return methodMap.root.matchNode(uri)
 	}
 	return nil
 }
 
 // ServeHTTP 框架核心结构实现Handler接口，所有接口都进入这个函数，然后再分发到对应的路由
 func (c *Core) ServeHTTP(response http.ResponseWriter, request *http.Request) {
+	// 封装自定义context
 	ctx := NewContext(response, request)
 
 	// 路由查找
-	handlers := c.FindRouteByRequest(request)
-	if handlers == nil {
+	node := c.FindRouteNodeByRequest(request)
+	if node == nil {
 		// 如果找不到路由，返回404
-		_ = ctx.Json(404, "Not Found")
+		ctx.SetStatus(404).Json("Not Found")
 		return
 	}
 	// 设置context中的handlers字段
-	ctx.SetHandlers(handlers)
-	//// 调用路由，如果路由执行失败，返回500
-	//if err := router(ctx); err != nil {
-	//	log.Printf("core request uir -> %v status -> %d\n", request.URL.Path, 500)
-	//	_ = ctx.Json(500, err.Error())
-	//	return
-	//}
+	ctx.SetHandlers(node.handlers)
+
+	// 设置路由参数
+	params := node.parseParamsFromEndNode(request.URL.Path)
+	ctx.SetParams(params)
+
 	// 调用路由，如果返回err代表存在内部错误，返回500
 	if err := ctx.Next(); err != nil {
-		_ = ctx.Json(500, err.Error())
+		ctx.SetStatus(500).Json(err.Error())
 		return
 	}
+}
+
+func (c *Core) GetRouters() map[string]*Tree {
+	return c.router
 }

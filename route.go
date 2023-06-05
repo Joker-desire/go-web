@@ -27,4 +27,11 @@ func registerRouter(core *framework.Core) {
 			v1.Get("/user", UserControllerHandler)
 		}
 	}
+	resp := core.Group("/resp")
+	{
+		resp.Get("/jsonp", TestJsonP)
+		resp.Get("/text", TestText)
+		resp.Get("/xml", TestXml)
+		resp.Get("/html", TestHtml)
+	}
 }
