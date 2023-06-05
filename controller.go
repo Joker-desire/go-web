@@ -76,6 +76,7 @@ func HelloControllerHandler(ctx *framework.Context) error {
 }
 
 func UserControllerHandler(ctx *framework.Context) error {
+	time.Sleep(10 * time.Second)
 	if name, ok := ctx.QueryString("name", "Joker"); ok {
 		ctx.SetOkStatus().Json("hello " + name + "!")
 	}
