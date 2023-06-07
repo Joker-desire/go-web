@@ -10,14 +10,14 @@ package middleware
 
 import (
 	"context"
-	"github.com/Joker-desire/go-web/framework"
+	"github.com/Joker-desire/go-web/framework/gin"
 	"log"
 	"time"
 )
 
-func TimeoutMiddleware(d time.Duration) framework.ControllerHandler {
+func TimeoutMiddleware(d time.Duration) gin.HandlerFunc {
 	// 使用函数回调
-	return func(c *framework.Context) error {
+	return func(c *gin.Context) {
 		log.Println("TimeoutMiddleware is running...")
 		// 这个channel负责通知结束
 		finish := make(chan struct{}, 1)
@@ -35,7 +35,7 @@ func TimeoutMiddleware(d time.Duration) framework.ControllerHandler {
 				}
 			}()
 			// 使用Next执行具体的业务逻辑
-			_ = c.Next()
+			c.Next()
 
 			// 业务结束后通知结束
 			finish <- struct{}{}
@@ -45,9 +45,7 @@ func TimeoutMiddleware(d time.Duration) framework.ControllerHandler {
 		select {
 		// 监听panic
 		case p := <-panicChan:
-			c.WriterMux().Lock()
-			defer c.WriterMux().Unlock()
-			c.SetStatus(500).Json("timeout")
+			c.ISetStatus(500).IJson("timeout")
 			log.Println(p)
 		case <-finish:
 			// 监听结束
@@ -55,11 +53,7 @@ func TimeoutMiddleware(d time.Duration) framework.ControllerHandler {
 			break
 		case <-durationCtx.Done():
 			// 监听超时
-			c.WriterMux().Lock()
-			defer c.WriterMux().Unlock()
-			c.SetHasTimeout()
-			c.SetStatus(500).Json("timeout")
+			c.ISetStatus(500).IJson("timeout")
 		}
-		return nil
 	}
 }

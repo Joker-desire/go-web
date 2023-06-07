@@ -9,34 +9,31 @@
 package middleware
 
 import (
-	"github.com/Joker-desire/go-web/framework"
+	"github.com/Joker-desire/go-web/framework/gin"
 	"log"
 )
 
-func Test1() framework.ControllerHandler {
+func Test1() gin.HandlerFunc {
 	// 使用函数回调
-	return func(c *framework.Context) error {
+	return func(c *gin.Context) {
 		log.Println("middleware pre test1")
-		_ = c.Next() // 通过Next往下调用，会自增context.index
+		c.Next() // 通过Next往下调用，会自增context.index
 		log.Println("middleware post test1")
-		return nil
 	}
 }
-func Test2() framework.ControllerHandler {
+func Test2() gin.HandlerFunc {
 	// 使用函数回调
-	return func(c *framework.Context) error {
+	return func(c *gin.Context) {
 		log.Println("middleware pre test2")
-		_ = c.Next() // 通过Next往下调用，会自增context.index
+		c.Next() // 通过Next往下调用，会自增context.index
 		log.Println("middleware post test2")
-		return nil
 	}
 }
-func Test3() framework.ControllerHandler {
+func Test3() gin.HandlerFunc {
 	// 使用函数回调
-	return func(c *framework.Context) error {
+	return func(c *gin.Context) {
 		log.Println("middleware pre test3")
-		_ = c.Next() // 通过Next往下调用，会自增context.index
+		c.Next() // 通过Next往下调用，会自增context.index
 		log.Println("middleware post test3")
-		return nil
 	}
 }

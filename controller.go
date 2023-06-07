@@ -10,19 +10,20 @@ package main
 
 import (
 	"fmt"
-	"github.com/Joker-desire/go-web/framework"
+	"github.com/Joker-desire/go-web/framework/gin"
 	"log"
 	"time"
 )
 
-func FooControllerHandler(ctx *framework.Context) error {
+func FooControllerHandler(ctx *gin.Context) {
 
 	// 获取请求参数
 	all := ctx.QueryAll()
 	fmt.Printf("%v\n", all)
-	device, _ := ctx.QueryString("device", "pc")
+	device, _ := ctx.DefaultQueryString("device", "pc")
+
 	fmt.Printf("device = %v\n", device)
-	age, _ := ctx.QueryInt("age", 0)
+	age, _ := ctx.DefaultQueryInt("age", 0)
 	fmt.Printf("age = %v\n", age)
 	time.Sleep(10 * time.Second)
 	//
@@ -67,45 +68,38 @@ func FooControllerHandler(ctx *framework.Context) error {
 	//	ctx.SetHasTimeout()
 	//
 	//}
-	return nil
 }
 
-func HelloControllerHandler(ctx *framework.Context) error {
-	ctx.SetOkStatus().Json("hello world")
-	return nil
+func HelloControllerHandler(ctx *gin.Context) {
+	ctx.ISetOkStatus().IJson("hello world")
 }
 
-func UserControllerHandler(ctx *framework.Context) error {
+func UserControllerHandler(ctx *gin.Context) {
 	time.Sleep(10 * time.Second)
-	if name, ok := ctx.QueryString("name", "Joker"); ok {
-		ctx.SetOkStatus().Json("hello " + name + "!")
+	if name, ok := ctx.DefaultQueryString("name", "Joker"); ok {
+		ctx.ISetOkStatus().IJson("hello " + name + "!")
 	}
-	return nil
 }
 
-func UserControllerHandler2(ctx *framework.Context) error {
+func UserControllerHandler2(ctx *gin.Context) {
 	param := ctx.Param("id")
 	log.Println(param)
-	ctx.SetOkStatus().Json("hello world")
-	return nil
+	ctx.ISetOkStatus().IJson("hello world")
 }
 
-func TestJsonP(ctx *framework.Context) error {
-	ctx.SetOkStatus().JsonP("hello JsonP")
-	return nil
+func TestJsonP(ctx *gin.Context) {
+	ctx.ISetOkStatus().IJsonP("hello JsonP")
 }
 
-func TestText(ctx *framework.Context) error {
-	ctx.SetOkStatus().Text("hello Text")
-	return nil
+func TestText(ctx *gin.Context) {
+	ctx.ISetOkStatus().IText("hello Text")
 }
 
-func TestXml(ctx *framework.Context) error {
-	ctx.SetOkStatus().Xml("hello Xml")
-	return nil
+func TestXml(ctx *gin.Context) {
+	ctx.ISetOkStatus().IXml("hello Xml")
 }
 
-func TestHtml(ctx *framework.Context) error {
+func TestHtml(ctx *gin.Context) {
 	type Todo struct {
 		Title string
 		Done  bool
@@ -122,6 +116,5 @@ func TestHtml(ctx *framework.Context) error {
 			{Title: "Task 3", Done: true},
 		},
 	}
-	ctx.SetOkStatus().Html("index.html", data)
-	return nil
+	ctx.ISetOkStatus().IHtml("index.html", data)
 }
