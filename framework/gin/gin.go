@@ -6,6 +6,7 @@ package gin
 
 import (
 	"fmt"
+	"github.com/Joker-desire/go-web/framework"
 	"html/template"
 	"net"
 	"net/http"
@@ -168,6 +169,9 @@ type Engine struct {
 	maxSections      uint16
 	trustedProxies   []string
 	trustedCIDRs     []*net.IPNet
+
+	// 容器
+	container framework.Container
 }
 
 var _ IRouter = (*Engine)(nil)
@@ -204,6 +208,8 @@ func New() *Engine {
 		secureJSONPrefix:       "while(1);",
 		trustedProxies:         []string{"0.0.0.0/0", "::/0"},
 		trustedCIDRs:           defaultTrustedCIDRs,
+		// 这里注入了container
+		container: framework.NewHadeContainer(),
 	}
 	engine.RouterGroup.engine = engine
 	engine.pool.New = func() any {
@@ -229,10 +235,17 @@ func (engine *Engine) Handler() http.Handler {
 	return h2c.NewHandler(engine, h2s)
 }
 
+// engine创建 context
 func (engine *Engine) allocateContext(maxParams uint16) *Context {
 	v := make(Params, 0, maxParams)
 	skippedNodes := make([]skippedNode, 0, engine.maxSections)
-	return &Context{engine: engine, params: &v, skippedNodes: &skippedNodes}
+	// 在分配新的Context的时候，注入了container
+	return &Context{
+		engine:       engine,
+		params:       &v,
+		skippedNodes: &skippedNodes,
+		container:    engine.container,
+	}
 }
 
 // Delims sets template left and right delims and returns an Engine instance.

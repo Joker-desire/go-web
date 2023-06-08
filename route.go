@@ -17,6 +17,7 @@ func registerRouter(core *gin.Engine) {
 	core.GET("/foo", FooControllerHandler)
 	// 在core中使用middleware.Test3() 为单个路由增加中间件
 	core.GET("/hello", middleware.Test3(), HelloControllerHandler)
+	core.GET("/testDemoService", TestDemoService)
 	api := core.Group("/api")
 	{
 		// 对UserControllerHandler进行超时处理

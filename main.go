@@ -12,6 +12,7 @@ import (
 	"context"
 	"github.com/Joker-desire/go-web/framework/gin"
 	"github.com/Joker-desire/go-web/framework/middleware"
+	"github.com/Joker-desire/go-web/provider/demo"
 	"log"
 	"net/http"
 	"os"
@@ -69,7 +70,8 @@ func main() {
 
 func main() {
 	core := gin.New()
-
+	// 绑定具体的服务
+	_ = core.Bind(&demo.ServiceProviderDemo{})
 	core.Use(
 		gin.Recovery(),
 		middleware.CostMiddleware())
