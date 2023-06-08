@@ -9,12 +9,14 @@
 package demo
 
 import (
-	"fmt"
 	"github.com/Joker-desire/go-web/framework"
 )
 
 // ServiceProviderDemo ServiceProvider DemoServiceProvider 服务提供方
 type ServiceProviderDemo struct {
+	framework.ServiceProvider
+
+	c framework.Container
 }
 
 func (s *ServiceProviderDemo) Name() string {
@@ -22,19 +24,18 @@ func (s *ServiceProviderDemo) Name() string {
 }
 
 func (s *ServiceProviderDemo) Register(container framework.Container) framework.NewInstance {
-	return NewServiceDemo
+	return NewService
 }
 
 func (s *ServiceProviderDemo) Params(container framework.Container) []any {
-	return []any{container}
+	return []any{s.c}
 }
 
 func (s *ServiceProviderDemo) IsDefer() bool {
 	return true
 }
 
-// Boot 这里什么逻辑都不执行，只打印一行日志信息
 func (s *ServiceProviderDemo) Boot(container framework.Container) error {
-	fmt.Println("demo service boot")
+	s.c = container
 	return nil
 }

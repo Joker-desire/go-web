@@ -13,26 +13,33 @@ import (
 	"github.com/Joker-desire/go-web/framework"
 )
 
-// ServiceDemo 具体的接口实例
-type ServiceDemo struct {
+// Service 具体的接口实例
+type Service struct {
 	// 实现接口
-	Service
+	IService
 	// 参数
 	c framework.Container
 }
 
-// NewServiceDemo 实例化接口
-func NewServiceDemo(params ...any) (any, error) {
+// NewService 实例化接口
+func NewService(params ...any) (any, error) {
 	// 这里需要将参数展开
 	c := params[0].(framework.Container)
 	fmt.Println("new demo service")
 	// 返回实例
-	return &ServiceDemo{c: c}, nil
+	return &Service{c: c}, nil
 }
 
-// GetFoo 实现接口的方法
-func (s *ServiceDemo) GetFoo() Foo {
-	return Foo{
-		Name: "i am demo service foo",
+// GetAllStudent 实现接口的方法
+func (s *Service) GetAllStudent() []Student {
+	return []Student{
+		{
+			ID:   1,
+			Name: "yy",
+		},
+		{
+			ID:   2,
+			Name: "Joker",
+		},
 	}
 }
