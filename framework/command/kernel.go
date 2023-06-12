@@ -7,3 +7,10 @@
  */
 
 package command
+
+import "github.com/Joker-desire/go-web/framework/cobra"
+
+func AddKernelCommands(root *cobra.Command) {
+	// 挂载AppCommand命令
+	root.AddCommand(initAppCommand())
+}
