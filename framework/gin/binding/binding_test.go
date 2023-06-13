@@ -18,7 +18,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Joker-desire/go-web/framework/gin/testdata/protoexample"
+	"github.com/Joker-desire/simple/framework/gin/testdata/protoexample"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/proto"
 )

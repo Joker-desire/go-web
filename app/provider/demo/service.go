@@ -10,7 +10,7 @@ package demo
 
 import (
 	"fmt"
-	"github.com/Joker-desire/go-web/framework"
+	"github.com/Joker-desire/simple/framework"
 )
 
 // Service 具体的接口实例

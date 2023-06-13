@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/Joker-desire/go-web/framework/gin"
+	"github.com/Joker-desire/simple/framework/gin"
 )
 
 var once sync.Once

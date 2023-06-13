@@ -17,7 +17,7 @@ package doc
 import (
 	"strings"
 
-	"github.com/Joker-desire/go-web/framework/cobra"
+	"github.com/Joker-desire/simple/framework/cobra"
 )
 
 // Test to see if we have a reason to print See Also information in docs

@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Joker-desire/go-web/framework/gin/internal/bytesconv"
+	"github.com/Joker-desire/simple/framework/gin/internal/bytesconv"
 )
 
 // AuthUserKey is the cookie name for user credential in basic auth.

@@ -9,20 +9,20 @@
 package kernel
 
 import (
-	"github.com/Joker-desire/go-web/framework/gin"
+	"github.com/Joker-desire/simple/framework/gin"
 	"net/http"
 )
 
-type HadeKernelService struct {
+type SimpleKernelService struct {
 	engine *gin.Engine
 }
 
-func NewHadeKernelService(params ...any) (any, error) {
+func NewSimpleKernelService(params ...any) (any, error) {
 	httpEngine := params[0].(*gin.Engine)
-	return &HadeKernelService{engine: httpEngine}, nil
+	return &SimpleKernelService{engine: httpEngine}, nil
 }
 
 // HttpEngine 返回web引擎
-func (s *HadeKernelService) HttpEngine() http.Handler {
+func (s *SimpleKernelService) HttpEngine() http.Handler {
 	return s.engine
 }

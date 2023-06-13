@@ -9,30 +9,30 @@
 package app
 
 import (
-	"github.com/Joker-desire/go-web/framework"
-	"github.com/Joker-desire/go-web/framework/contract"
+	"github.com/Joker-desire/simple/framework"
+	"github.com/Joker-desire/simple/framework/contract"
 )
 
-type HadeAppProvider struct {
+type SimpleAppProvider struct {
 	BaseFolder string
 }
 
-func (h *HadeAppProvider) Name() string {
+func (h *SimpleAppProvider) Name() string {
 	return contract.AppKey
 }
 
-func (h *HadeAppProvider) Register(container framework.Container) framework.NewInstance {
-	return NewHadeApp
+func (h *SimpleAppProvider) Register(container framework.Container) framework.NewInstance {
+	return NewSimpleApp
 }
 
-func (h *HadeAppProvider) Params(container framework.Container) []any {
+func (h *SimpleAppProvider) Params(container framework.Container) []any {
 	return []any{container, h.BaseFolder}
 }
 
-func (h *HadeAppProvider) IsDefer() bool {
+func (h *SimpleAppProvider) IsDefer() bool {
 	return false
 }
 
-func (h *HadeAppProvider) Boot(container framework.Container) error {
+func (h *SimpleAppProvider) Boot(container framework.Container) error {
 	return nil
 }

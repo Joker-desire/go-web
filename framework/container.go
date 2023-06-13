@@ -30,16 +30,16 @@ type Container interface {
 	MakeNew(key string, params []any) (any, error)
 }
 
-type HadeContainer struct {
-	Container                            // 强制要求HadeContainer实现Container接口
+type SimpleContainer struct {
+	Container                            // 强制要求SimpleContainer实现Container接口
 	providers map[string]ServiceProvider // 存储注册的服务提供者，key是服务提供者的凭证
 	instances map[string]any             // 存储具体的实例，key是服务提供者的凭证
 	lock      sync.RWMutex               // 用于锁住对容器的变更操作
 }
 
-// NewHadeContainer 创建一个服务容器
-func NewHadeContainer() *HadeContainer {
-	return &HadeContainer{
+// NewSimpleContainer 创建一个服务容器
+func NewSimpleContainer() *SimpleContainer {
+	return &SimpleContainer{
 		providers: map[string]ServiceProvider{},
 		instances: map[string]any{},
 		lock:      sync.RWMutex{},
@@ -47,7 +47,7 @@ func NewHadeContainer() *HadeContainer {
 }
 
 // 查找一个服务提供者
-func (h *HadeContainer) findServiceProvider(key string) ServiceProvider {
+func (h *SimpleContainer) findServiceProvider(key string) ServiceProvider {
 	h.lock.RLock()
 	defer h.lock.RUnlock()
 	if provider, ok := h.providers[key]; ok {
@@ -57,7 +57,7 @@ func (h *HadeContainer) findServiceProvider(key string) ServiceProvider {
 }
 
 // 实例化一个服务
-func (h *HadeContainer) newInstance(provider ServiceProvider, params []any) (any, error) {
+func (h *SimpleContainer) newInstance(provider ServiceProvider, params []any) (any, error) {
 	if err := provider.Boot(h); err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func (h *HadeContainer) newInstance(provider ServiceProvider, params []any) (any
 }
 
 // 真正的实例化一个服务
-func (h *HadeContainer) make(key string, params []any, forceNew bool) (any, error) {
+func (h *SimpleContainer) make(key string, params []any, forceNew bool) (any, error) {
 	h.lock.RLock()
 	defer h.lock.RUnlock()
 	// 查询是否已经注册了这个服务提供者，如果没有注册，则返回错误
@@ -100,7 +100,7 @@ func (h *HadeContainer) make(key string, params []any, forceNew bool) (any, erro
 }
 
 // Bind 将服务容器和关键字做了绑定
-func (h *HadeContainer) Bind(provider ServiceProvider) error {
+func (h *SimpleContainer) Bind(provider ServiceProvider) error {
 	h.lock.Lock()
 	defer h.lock.Unlock()
 	key := provider.Name()
@@ -123,15 +123,15 @@ func (h *HadeContainer) Bind(provider ServiceProvider) error {
 	return nil
 }
 
-func (h *HadeContainer) IsBind(key string) bool {
+func (h *SimpleContainer) IsBind(key string) bool {
 	return h.findServiceProvider(key) != nil
 }
 
-func (h *HadeContainer) Make(key string) (any, error) {
+func (h *SimpleContainer) Make(key string) (any, error) {
 	return h.make(key, nil, false)
 }
 
-func (h *HadeContainer) MustMake(key string) any {
+func (h *SimpleContainer) MustMake(key string) any {
 	serv, err := h.make(key, nil, false)
 	if err != nil {
 		panic(err)
@@ -139,6 +139,6 @@ func (h *HadeContainer) MustMake(key string) any {
 	return serv
 }
 
-func (h *HadeContainer) MakeNew(key string, params []any) (any, error) {
+func (h *SimpleContainer) MakeNew(key string, params []any) (any, error) {
 	return h.make(key, params, true)
 }

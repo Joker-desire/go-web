@@ -9,7 +9,7 @@
 package demo
 
 import (
-	"github.com/Joker-desire/go-web/framework/cobra"
+	"github.com/Joker-desire/simple/framework/cobra"
 	"log"
 )
 

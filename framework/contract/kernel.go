@@ -11,7 +11,7 @@ package contract
 import "net/http"
 
 // KernelKey 提供kernel服务凭证
-const KernelKey = "go-web:kernel"
+const KernelKey = "simple:kernel"
 
 // Kernel 接口提供框架最核心的结构
 type Kernel interface {

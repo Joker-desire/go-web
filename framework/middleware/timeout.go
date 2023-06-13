@@ -10,7 +10,7 @@ package middleware
 
 import (
 	"context"
-	"github.com/Joker-desire/go-web/framework/gin"
+	"github.com/Joker-desire/simple/framework/gin"
 	"log"
 	"time"
 )

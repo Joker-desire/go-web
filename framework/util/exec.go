@@ -8,7 +8,10 @@
 
 package util
 
-import "os"
+import (
+	"os"
+	"syscall"
+)
 
 // GetExecDirectory 获取当前执行文件的目录
 func GetExecDirectory() string {
@@ -17,4 +20,17 @@ func GetExecDirectory() string {
 		return ""
 	}
 	return file + "/"
+}
+
+// CheckProcessExist 检查进程是否存在
+func CheckProcessExist(pid int) bool {
+	process, err := os.FindProcess(pid)
+	if err != nil {
+		return false
+	}
+	err = process.Signal(syscall.Signal(0))
+	if err != nil {
+		return false
+	}
+	return true
 }

@@ -18,8 +18,8 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/Joker-desire/go-web/framework/cobra"
-	"github.com/Joker-desire/go-web/framework/cobra/doc"
+	"github.com/Joker-desire/simple/framework/cobra"
+	"github.com/Joker-desire/simple/framework/cobra/doc"
 )
 
 func ExampleGenManTree() {

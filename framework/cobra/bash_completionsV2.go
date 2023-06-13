@@ -222,7 +222,7 @@ __%[1]s_handle_completion_types() {
         # Type: menu-complete/menu-complete-backward and insert-completions
         # If the user requested inserting one completion at a time, or all
         # completions at once on the command-line we must remove the descriptions.
-        # https://github.com/Joker-desire/go-web/framework/cobra/issues/1508
+        # https://github.com/Joker-desire/simple/framework/cobra/issues/1508
         local tab=$'\t' comp
         while IFS='' read -r comp; do
             [[ -z $comp ]] && continue

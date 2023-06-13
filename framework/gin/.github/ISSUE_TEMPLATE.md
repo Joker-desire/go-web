@@ -14,7 +14,7 @@
 package main
 
 import (
-	"github.com/Joker-desire/go-web/framework/gin"
+	"github.com/Joker-desire/simple/framework/gin"
 )
 
 func main() {

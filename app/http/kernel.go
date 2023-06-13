@@ -8,7 +8,7 @@
 
 package http
 
-import "github.com/Joker-desire/go-web/framework/gin"
+import "github.com/Joker-desire/simple/framework/gin"
 
 func NewHttpEngine() (*gin.Engine, error) {
 	gin.SetMode(gin.ReleaseMode)

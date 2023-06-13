@@ -6,7 +6,7 @@ package render
 
 import (
 	"fmt"
-	"github.com/Joker-desire/go-web/framework/gin/internal/bytesconv"
+	"github.com/Joker-desire/simple/framework/gin/internal/bytesconv"
 	"net/http"
 )
 

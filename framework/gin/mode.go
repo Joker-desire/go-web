@@ -9,7 +9,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/Joker-desire/go-web/framework/gin/binding"
+	"github.com/Joker-desire/simple/framework/gin/binding"
 )
 
 // EnvGinMode indicates environment name for gin mode.

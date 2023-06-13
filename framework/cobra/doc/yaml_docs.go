@@ -22,7 +22,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/Joker-desire/go-web/framework/cobra"
+	"github.com/Joker-desire/simple/framework/cobra"
 	"github.com/spf13/pflag"
 	"gopkg.in/yaml.v3"
 )

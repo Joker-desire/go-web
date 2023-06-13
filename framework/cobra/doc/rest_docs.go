@@ -24,7 +24,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Joker-desire/go-web/framework/cobra"
+	"github.com/Joker-desire/simple/framework/cobra"
 )
 
 func printOptionsReST(buf *bytes.Buffer, cmd *cobra.Command, name string) error {

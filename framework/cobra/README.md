@@ -6,9 +6,9 @@ Cobra is used in many Go projects such as [Kubernetes](https://kubernetes.io/),
 [Hugo](https://gohugo.io), and [GitHub CLI](https://github.com/cli/cli) to
 name a few. [This list](./projects_using_cobra.md) contains a more extensive list of projects using Cobra.
 
-[![](https://img.shields.io/github/actions/workflow/status/spf13/cobra/test.yml?branch=main&longCache=true&label=Test&logo=github%20actions&logoColor=fff)](https://github.com/Joker-desire/go-web/framework/cobra/actions?query=workflow%3ATest)
-[![Go Reference](https://pkg.go.dev/badge/github.com/Joker-desire/go-web/framework/cobra.svg)](https://pkg.go.dev/github.com/Joker-desire/go-web/framework/cobra)
-[![Go Report Card](https://goreportcard.com/badge/github.com/Joker-desire/go-web/framework/cobra)](https://goreportcard.com/report/github.com/Joker-desire/go-web/framework/cobra)
+[![](https://img.shields.io/github/actions/workflow/status/spf13/cobra/test.yml?branch=main&longCache=true&label=Test&logo=github%20actions&logoColor=fff)](https://github.com/Joker-desire/simple/framework/cobra/actions?query=workflow%3ATest)
+[![Go Reference](https://pkg.go.dev/badge/github.com/Joker-desire/simple/framework/cobra.svg)](https://pkg.go.dev/github.com/Joker-desire/simple/framework/cobra)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Joker-desire/simple/framework/cobra)](https://goreportcard.com/report/github.com/Joker-desire/simple/framework/cobra)
 [![Slack](https://img.shields.io/badge/Slack-cobra-brightgreen)](https://gophers.slack.com/archives/CD3LP1199)
 
 # Overview
@@ -63,7 +63,7 @@ have children commands and optionally run an action.
 
 In the example above, 'server' is the command.
 
-[More about cobra.Command](https://pkg.go.dev/github.com/Joker-desire/go-web/framework/cobra#Command)
+[More about cobra.Command](https://pkg.go.dev/github.com/Joker-desire/simple/framework/cobra#Command)
 
 ## Flags
 
@@ -83,13 +83,13 @@ Using Cobra is easy. First, use `go get` to install the latest version
 of the library.     
 
 ```
-go get -u github.com/Joker-desire/go-web/framework/cobra@latest
+go get -u github.com/Joker-desire/simple/framework/cobra@latest
 ```
 
 Next, include Cobra in your application:
 
 ```go
-import "github.com/Joker-desire/go-web/framework/cobra"
+import "github.com/Joker-desire/simple/framework/cobra"
 ```
 
 # Usage
@@ -100,13 +100,13 @@ develop a Cobra-based application. It is the easiest way to incorporate Cobra in
 It can be installed by running:
 
 ```
-go install github.com/Joker-desire/go-web/framework/cobra-cli@latest
+go install github.com/Joker-desire/simple/framework/cobra-cli@latest
 ```
 
-For complete details on using the Cobra-CLI generator, please read [The Cobra Generator README](https://github.com/Joker-desire/go-web/framework/cobra-cli/blob/main/README.md)
+For complete details on using the Cobra-CLI generator, please read [The Cobra Generator README](https://github.com/Joker-desire/simple/framework/cobra-cli/blob/main/README.md)
 
 For complete details on using the Cobra library, please read the [The Cobra User Guide](user_guide.md).
 
 # License
 
-Cobra is released under the Apache 2.0 license. See [LICENSE.txt](https://github.com/Joker-desire/go-web/framework/cobra/blob/master/LICENSE.txt)
+Cobra is released under the Apache 2.0 license. See [LICENSE.txt](https://github.com/Joker-desire/simple/framework/cobra/blob/master/LICENSE.txt)

@@ -7,7 +7,7 @@ package gin
 import (
 	"log"
 
-	"github.com/Joker-desire/go-web/framework/gin/binding"
+	"github.com/Joker-desire/simple/framework/gin/binding"
 )
 
 // BindWith binds the passed struct pointer using the specified binding engine.

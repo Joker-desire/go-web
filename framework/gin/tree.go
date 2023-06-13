@@ -11,7 +11,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/Joker-desire/go-web/framework/gin/internal/bytesconv"
+	"github.com/Joker-desire/simple/framework/gin/internal/bytesconv"
 )
 
 var (

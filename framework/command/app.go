@@ -10,8 +10,8 @@ package command
 
 import (
 	"context"
-	"github.com/Joker-desire/go-web/framework/cobra"
-	"github.com/Joker-desire/go-web/framework/contract"
+	"github.com/Joker-desire/simple/framework/cobra"
+	"github.com/Joker-desire/simple/framework/contract"
 	"log"
 	"net/http"
 	"os"

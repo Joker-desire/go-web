@@ -21,7 +21,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/Joker-desire/go-web/framework"
+	"github.com/Joker-desire/simple/framework"
+	"github.com/robfig/cron/v3"
 	"io"
 	"os"
 	"path/filepath"
@@ -49,6 +50,13 @@ type Group struct {
 type Command struct {
 	// 新增服务容器
 	container framework.Container
+
+	// 新增定时任务
+
+	// Command支持cron，只在RootCommand中有这个值
+	Cron *cron.Cron
+	// 对应Cron命令的信息
+	CronSpecs []CronSpec
 
 	// Use is the one-line usage message.
 	// Recommended syntax is as follows:
@@ -450,7 +458,7 @@ func (c *Command) HelpFunc() func(*Command, []string) {
 	return func(c *Command, a []string) {
 		c.mergePersistentFlags()
 		// The help should be sent to stdout
-		// See https://github.com/Joker-desire/go-web/framework/cobra/issues/1002
+		// See https://github.com/Joker-desire/simple/framework/cobra/issues/1002
 		err := tmpl(c.OutOrStdout(), c.HelpTemplate(), c)
 		if err != nil {
 			c.PrintErrln(err)
@@ -1532,7 +1540,7 @@ func (c *Command) IsAvailableCommand() bool {
 // help topic command; additional help topic command is determined by the
 // fact that it is NOT runnable/hidden/deprecated, and has no sub commands that
 // are runnable/hidden/deprecated.
-// Concrete example: https://github.com/Joker-desire/go-web/framework/cobra/issues/393#issuecomment-282741924.
+// Concrete example: https://github.com/Joker-desire/simple/framework/cobra/issues/393#issuecomment-282741924.
 func (c *Command) IsAdditionalHelpTopicCommand() bool {
 	// if a command is runnable, deprecated, or hidden it is not a 'help' command
 	if c.Runnable() || len(c.Deprecated) != 0 || c.Hidden {

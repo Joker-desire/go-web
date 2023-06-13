@@ -8,9 +8,11 @@
 
 package contract
 
-const AppKey = "go-web:app"
+const AppKey = "simple:app"
 
 type App interface {
+	// AppID 表示当前这个app的唯一ID，可用于分布式锁等
+	AppID() string
 	// Version 定义当前版本号
 	Version() string
 	// BaseFolder 定义项目基础路径

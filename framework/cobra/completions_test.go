@@ -2020,7 +2020,7 @@ func TestFlagCompletionWorksRootCommandAddedAfterFlags(t *testing.T) {
 		return []string{"myval"}, ShellCompDirectiveDefault
 	})
 
-	// Important: This is a test for https://github.com/Joker-desire/go-web/framework/cobra/issues/1437
+	// Important: This is a test for https://github.com/Joker-desire/simple/framework/cobra/issues/1437
 	// Only add the subcommand after RegisterFlagCompletionFunc was called, do not change this order!
 	rootCmd.AddCommand(childCmd)
 
@@ -3118,7 +3118,7 @@ func TestCompletionCobraFlags(t *testing.T) {
 
 func TestArgsNotDetectedAsFlagsCompletionInGo(t *testing.T) {
 	// Regression test that ensures the bug described in
-	// https://github.com/Joker-desire/go-web/framework/cobra/issues/1816 does not occur anymore.
+	// https://github.com/Joker-desire/simple/framework/cobra/issues/1816 does not occur anymore.
 
 	root := Command{
 		Use: "root",

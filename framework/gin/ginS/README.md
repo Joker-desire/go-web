@@ -6,8 +6,8 @@ This is API experiment for Gin.
 package main
 
 import (
-	"github.com/Joker-desire/go-web/framework/gin"
-	"github.com/Joker-desire/go-web/framework/gin/ginS"
+	"github.com/Joker-desire/simple/framework/gin"
+	"github.com/Joker-desire/simple/framework/gin/ginS"
 )
 
 func main() {

@@ -25,7 +25,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Joker-desire/go-web/framework/cobra"
+	"github.com/Joker-desire/simple/framework/cobra"
 	"github.com/cpuguy83/go-md2man/v2/md2man"
 	"github.com/spf13/pflag"
 )

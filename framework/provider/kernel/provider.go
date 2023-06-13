@@ -9,33 +9,33 @@
 package kernel
 
 import (
-	"github.com/Joker-desire/go-web/framework"
-	"github.com/Joker-desire/go-web/framework/contract"
-	"github.com/Joker-desire/go-web/framework/gin"
+	"github.com/Joker-desire/simple/framework"
+	"github.com/Joker-desire/simple/framework/contract"
+	"github.com/Joker-desire/simple/framework/gin"
 )
 
-// HadeKernelProvider 提供web引擎
-type HadeKernelProvider struct {
+// SimpleKernelProvider 提供web引擎
+type SimpleKernelProvider struct {
 	HttpEngine *gin.Engine
 }
 
-func (p *HadeKernelProvider) Name() string {
+func (p *SimpleKernelProvider) Name() string {
 	return contract.KernelKey
 }
 
-func (p *HadeKernelProvider) Register(container framework.Container) framework.NewInstance {
-	return NewHadeKernelService
+func (p *SimpleKernelProvider) Register(container framework.Container) framework.NewInstance {
+	return NewSimpleKernelService
 }
 
-func (p *HadeKernelProvider) Params(container framework.Container) []any {
+func (p *SimpleKernelProvider) Params(container framework.Container) []any {
 	return []any{p.HttpEngine}
 }
 
-func (p *HadeKernelProvider) IsDefer() bool {
+func (p *SimpleKernelProvider) IsDefer() bool {
 	return false
 }
 
-func (p *HadeKernelProvider) Boot(container framework.Container) error {
+func (p *SimpleKernelProvider) Boot(container framework.Container) error {
 	if p.HttpEngine == nil {
 		p.HttpEngine = gin.Default()
 	}

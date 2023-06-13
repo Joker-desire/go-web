@@ -8,9 +8,11 @@
 
 package command
 
-import "github.com/Joker-desire/go-web/framework/cobra"
+import "github.com/Joker-desire/simple/framework/cobra"
 
 func AddKernelCommands(root *cobra.Command) {
 	// 挂载AppCommand命令
 	root.AddCommand(initAppCommand())
+	// 挂载CronCommand命令
+	root.AddCommand(initCronCommand())
 }

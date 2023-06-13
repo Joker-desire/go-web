@@ -10,7 +10,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/Joker-desire/go-web/framework/gin/binding"
+	"github.com/Joker-desire/simple/framework/gin/binding"
 	"github.com/stretchr/testify/assert"
 )
 

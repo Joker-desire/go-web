@@ -9,7 +9,7 @@
 package demo
 
 import (
-	"github.com/Joker-desire/go-web/framework"
+	"github.com/Joker-desire/simple/framework"
 )
 
 // ServiceProviderDemo ServiceProvider DemoServiceProvider 服务提供方

@@ -24,7 +24,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Joker-desire/go-web/framework/cobra"
+	"github.com/Joker-desire/simple/framework/cobra"
 )
 
 func assertNoErr(t *testing.T, e error) {

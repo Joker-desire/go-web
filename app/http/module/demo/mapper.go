@@ -9,7 +9,7 @@
 package demo
 
 import (
-	demoService "github.com/Joker-desire/go-web/app/provider/demo"
+	demoService "github.com/Joker-desire/simple/app/provider/demo"
 )
 
 func UserModelsToUserDTOs(models []UserModel) []UserDTO {

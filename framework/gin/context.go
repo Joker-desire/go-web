@@ -6,7 +6,7 @@ package gin
 
 import (
 	"errors"
-	"github.com/Joker-desire/go-web/framework"
+	"github.com/Joker-desire/simple/framework"
 	"io"
 	"log"
 	"math"
@@ -20,8 +20,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Joker-desire/go-web/framework/gin/binding"
-	"github.com/Joker-desire/go-web/framework/gin/render"
+	"github.com/Joker-desire/simple/framework/gin/binding"
+	"github.com/Joker-desire/simple/framework/gin/render"
 	"github.com/gin-contrib/sse"
 )
 

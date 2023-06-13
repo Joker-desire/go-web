@@ -9,9 +9,9 @@
 package demo
 
 import (
-	demoService "github.com/Joker-desire/go-web/app/provider/demo"
-	"github.com/Joker-desire/go-web/framework/contract"
-	"github.com/Joker-desire/go-web/framework/gin"
+	demoService "github.com/Joker-desire/simple/app/provider/demo"
+	"github.com/Joker-desire/simple/framework/contract"
+	"github.com/Joker-desire/simple/framework/gin"
 )
 
 type ApiDemo struct {

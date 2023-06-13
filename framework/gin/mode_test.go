@@ -6,7 +6,7 @@ package gin
 
 import (
 	"flag"
-	"github.com/Joker-desire/go-web/framework/gin/binding"
+	"github.com/Joker-desire/simple/framework/gin/binding"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
