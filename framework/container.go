@@ -108,6 +108,10 @@ func (h *SimpleContainer) Bind(provider ServiceProvider) error {
 	h.providers[key] = provider
 
 	if provider.IsDefer() == false {
+		// 因为Boot方法中可能会调用Make方法,
+		// 而Make方法中又会加锁,所以这里先释放锁,
+		// 等Boot方法执行完毕后再加锁
+		h.lock.Unlock() // 释放锁，防止死锁
 		if err := provider.Boot(h); err != nil {
 			return err
 		}
@@ -119,6 +123,8 @@ func (h *SimpleContainer) Bind(provider ServiceProvider) error {
 			return errors.New(err.Error())
 		}
 		h.instances[key] = instance
+		// 重新加锁
+		h.lock.Lock()
 	}
 	return nil
 }
