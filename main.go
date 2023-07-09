@@ -13,6 +13,7 @@ import (
 	appHttp "github.com/Joker-desire/simple/app/http"
 	"github.com/Joker-desire/simple/framework"
 	"github.com/Joker-desire/simple/framework/provider/app"
+	"github.com/Joker-desire/simple/framework/provider/config"
 	"github.com/Joker-desire/simple/framework/provider/distributed"
 	"github.com/Joker-desire/simple/framework/provider/env"
 	"github.com/Joker-desire/simple/framework/provider/kernel"
@@ -27,6 +28,7 @@ func main() {
 	// 后续初始化需要绑定的服务提供者
 	_ = container.Bind(&env.SimpleEnvProvider{})
 	_ = container.Bind(&distributed.LocalDistributedProvider{})
+	_ = container.Bind(&config.SimpleConfigProvider{})
 
 	// 将HTTP引擎初始化，并且作为服务提供者绑定到服务容器中
 	if engine, err := appHttp.NewHttpEngine(); err == nil {

@@ -32,6 +32,7 @@ func Register(r *gin.Engine) error {
 		d.GET("/demo2", api.Demo2)
 		d.GET("/demo3", api.Demo3)
 		d.POST("/demo", api.DemoPost)
+		d.GET("/config", api.GetConfigEnv)
 	}
 	return nil
 }
@@ -66,4 +67,12 @@ func (a *ApiDemo) DemoPost(c *gin.Context) {
 		_ = c.AbortWithError(500, err)
 	}
 	c.JSON(200, foo)
+}
+
+func (a *ApiDemo) GetConfigEnv(c *gin.Context) {
+	configService := c.MustMake(contract.ConfigKey).(contract.Config)
+	port := configService.GetInt("database.mysql.port")
+	c.JSON(200, gin.H{
+		"port": port,
+	})
 }
